@@ -1,6 +1,6 @@
 import axios from "axios";
 import {GATEWAY_SERVER} from "@/common/environment";
-import {removeToken} from "@/api/token-control";
+import {getToken, removeToken} from "@/api/token-control";
 import {basicLogger} from "@/common/logger";
 import router from "@/routes";
 
@@ -18,13 +18,13 @@ axios.interceptors.request.use((config) => {
   });
 
 axios.interceptors.response.use((config) => {
-    // if (config.status === 401) {
-    //   moveSignInPage();
-    // }
+    if (config.status === 401) {
+      moveSignInPage();
+    }
 
-    // basicLogger('==== Intercept response ====');
-    // basicLogger(config);
-    // basicLogger('============================');
+    basicLogger('==== Intercept response ====');
+    basicLogger(config);
+    basicLogger('============================');
     return config;
   },
   (error => {
@@ -57,28 +57,34 @@ const request = {
 
 const authentication = {
   get(path, payload) {
+    setJwtToken(getToken());
     return request.get(path, payload);
   },
   post(path, payload) {
+    setJwtToken(getToken());
     return request.post(path, payload);
   },
   put(path, payload) {
+    setJwtToken(getToken());
     return request.put(path, payload);
   },
   delete(path) {
+    setJwtToken(getToken());
     return request.delete(path);
   },
 };
 
 const noAuthentication = {
   signIn(payload) {
-    return request.post('/auth-api/api/sign/in', payload);
+    return request.post(`/auth-api/authenticate`, payload);
   },
   signOut() {
     removeToken();
     router.push(`/login?previousPath=${encodeURIComponent(location.pathname)}`);
   },
 };
+
+const setJwtToken = token => axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 
 const moveSignInPage = () => {
   alert('Your account information has expired. Please sign in again.');

@@ -6,11 +6,11 @@
         justify="center"
       >
         <v-col cols="4">
-          <v-img
-            src="../../public/img/login.jpg"
-            height="600px"
-            rounded
-          ></v-img>
+<!--          <v-img-->
+<!--            src="../../public/img/login.jpg"-->
+<!--            height="600px"-->
+<!--            rounded-->
+<!--          ></v-img>-->
         </v-col>
         <v-col cols="4">
           <v-card class="elevation-12"

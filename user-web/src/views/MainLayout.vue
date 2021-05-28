@@ -50,7 +50,7 @@ export default {
   width: 100%;
   padding: 11px 30px;
   color: #DFE4ED;
-  background-image: url('../../public/img/header-profile-skin-2.png');
-  background-size: 100%;
+  /*background-image: url('../../public/img/header-profile-skin-2.png');*/
+  /*background-size: 100%;*/
 }
 </style>
