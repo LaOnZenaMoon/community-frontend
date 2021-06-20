@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from "@/views/Login";
 import MainLayout from "@/views/MainLayout";
 import Main from "@/views/Main";
+import createBoard from "@/views/createBoard";
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,26 @@ const routes = [
         path: '/main',
         name: 'Main',
         component: Main
+      },
+      {
+        path: '/notice/board',
+        name: 'Notice',
+        component: createBoard('Notice'),
+      },
+      {
+        path: '/column/board',
+        name: 'Column',
+        component: createBoard('Column'),
+      },
+      {
+        path: '/free/community/board',
+        name: 'Free Community',
+        component: createBoard('Free Community'),
+      },
+      {
+        path: '/expert/community/board',
+        name: 'Expert Community',
+        component: createBoard('Expert Community'),
       },
     ],
   },

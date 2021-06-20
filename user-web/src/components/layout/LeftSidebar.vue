@@ -11,12 +11,13 @@
         align="center"
         class="logo-style"
     >
-      <h3>LOZM User Web</h3>
-      <h4>Administrator</h4>
+      <h3>User Web</h3>
+      <h4>LaOnZenaMoon</h4>
       <!--      <h4 v-text="getUserName()"></h4>-->
     </v-sheet>
 
     <v-list>
+
       <v-list-group
         :value="false"
       >

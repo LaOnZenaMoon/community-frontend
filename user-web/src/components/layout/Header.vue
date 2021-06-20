@@ -20,9 +20,6 @@
           </v-list>
         </v-menu>
       </v-col>
-<!--      <v-col cols="auto">-->
-<!--        <v-icon class="mx-auto" @click.stop="changeRightDrawer">mdi-arrow-collapse-right</v-icon>-->
-<!--      </v-col>-->
     </v-app-bar>
   </div>
 </template>

@@ -45,12 +45,5 @@ export default {
 </script>
 
 <style scoped>
-.main-header {
-  height: 50px;
-  width: 100%;
-  padding: 11px 30px;
-  color: #DFE4ED;
-  /*background-image: url('../../public/img/header-profile-skin-2.png');*/
-  /*background-size: 100%;*/
-}
+
 </style>
