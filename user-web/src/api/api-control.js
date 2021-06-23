@@ -5,17 +5,17 @@ import {basicLogger} from "@/common/logger";
 import router from "@/routes";
 
 
-axios.defaults.headers = {'Content-Type': 'application/json;charset=UTF-8'};
-axios.interceptors.request.use((config) => {
-    // basicLogger('==== Intercept request ====');
-    // basicLogger(config);
-    // basicLogger('============================');
-    return config;
-  },
-  (error) => {
-    basicLogger(error);
-    return Promise.reject(error);
-  });
+// axios.defaults.headers = {'Content-Type': 'application/json;charset=UTF-8'};
+// axios.interceptors.request.use((config) => {
+//     // basicLogger('==== Intercept request ====');
+//     // basicLogger(config);
+//     // basicLogger('============================');
+//     return config;
+//   },
+//   (error) => {
+//     basicLogger(error);
+//     return Promise.reject(error);
+//   });
 
 axios.interceptors.response.use((config) => {
     if (config.status === 401) {
@@ -82,9 +82,15 @@ const noAuthentication = {
     removeToken();
     router.push(`/login?previousPath=${encodeURIComponent(location.pathname)}`);
   },
+  get(path, payload) {
+    return request.get(path, payload);
+  },
 };
 
-const setJwtToken = token => axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+const setJwtToken = token => {
+  console.log(token);
+  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+}
 
 const moveSignInPage = () => {
   alert('Your account information has expired. Please sign in again.');

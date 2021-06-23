@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import Login from "@/views/Login";
 import MainLayout from "@/views/MainLayout";
 import Main from "@/views/Main";
-import createBoard from "@/views/createBoard";
+import createBasicBoard from "@/views/createBasicBoard";
+import {FREE_TALK, MAGAZINE, MAIN, MARKET, MULTIMEDIA, NEWS} from "@/common/pageName";
 
 Vue.use(VueRouter)
 
@@ -35,28 +36,33 @@ const routes = [
     children: [
       {
         path: '/main',
-        name: 'Main',
+        name: MAIN,
         component: Main
       },
       {
-        path: '/notice/board',
-        name: 'Notice',
-        component: createBoard('Notice'),
+        path: '/news/board',
+        name: NEWS,
+        component: createBasicBoard('News'),
       },
       {
-        path: '/column/board',
-        name: 'Column',
-        component: createBoard('Column'),
+        path: '/magazine/board',
+        name: MAGAZINE,
+        component: createBasicBoard('Magazine'),
       },
       {
-        path: '/free/community/board',
-        name: 'Free Community',
-        component: createBoard('Free Community'),
+        path: '/free-talk/board',
+        name: FREE_TALK,
+        component: createBasicBoard('Free-talk'),
       },
       {
-        path: '/expert/community/board',
-        name: 'Expert Community',
-        component: createBoard('Expert Community'),
+        path: '/multimedia/board',
+        name: MULTIMEDIA,
+        component: createBasicBoard('Multimedia'),
+      },
+      {
+        path: '/market/board',
+        name: MARKET,
+        component: createBasicBoard('Market'),
       },
     ],
   },

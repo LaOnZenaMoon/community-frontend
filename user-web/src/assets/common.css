@@ -7,7 +7,7 @@
 }
 
 .v-data-table th {
-    color: #DFE4ED !important;
+    color: rgba(0, 0, 0, 0.87) !important;
     font-size: 15px !important;
     text-overflow: ellipsis;
     overflow: hidden;

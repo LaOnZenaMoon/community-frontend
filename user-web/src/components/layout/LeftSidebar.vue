@@ -17,6 +17,55 @@
     </v-sheet>
 
     <v-list>
+      <v-list-item to="/news/board">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['far', 'newspaper']"></font-awesome-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>News</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item to="/magazine/board">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['fas', 'book']"></font-awesome-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Magazine</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item to="/free-talk/board">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['far', 'comments']"></font-awesome-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Free-talk</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item to="/multimedia/board">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['fas', 'photo-video']"></font-awesome-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Multimedia</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item to="/market/board">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['fas', 'comment-dollar']"></font-awesome-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Market</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-list-group
         :value="false"
