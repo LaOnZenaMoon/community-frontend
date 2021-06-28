@@ -4,8 +4,8 @@ module.exports = {
   ],
   devServer: {
     disableHostCheck: true,
-    port: 3000,
-    public: '0.0.0.0:3000'
+    port: 4000,
+    public: '0.0.0.0:4000'
   },
   publicPath: "/"
 }

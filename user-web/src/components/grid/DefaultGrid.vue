@@ -1,21 +1,19 @@
 <template>
   <div>
     <v-data-table
-      dense multi-sort
-      :headers="headers" :items="items" :items-per-page="itemsPerPage"
-      :header-props="{
+        dense multi-sort
+        :headers="headers" :items="items" :items-per-page="itemsPerPage"
+        :header-props="{
         }"
-      :footer-props="{
-          prevIcon: 'mdi-arrow-left-bold',
-          nextIcon: 'mdi-arrow-right-bold',
-        }"
-      :search="searchKeyword"
-      :custom-filter="filterCustom"
-      :calculate-widths="true"
-      :show-select="selectUse"
-      :single-select="selectUse"
-      :item-key="selectKey"
-      @item-selected="selectItem"
+        :search="searchKeyword"
+        :custom-filter="filterCustom"
+        :calculate-widths="true"
+        :show-select="selectUse"
+        :single-select="selectUse"
+        :item-key="selectKey"
+        @item-selected="selectItem"
+        hide-default-footer
+        :page.sync="pageNumber"
     >
       <template v-slot:top v-if="searchUse">
         <v-toolbar flat>
@@ -23,22 +21,22 @@
             <v-spacer></v-spacer>
             <v-col cols="auto" sm="2" class="">
               <v-select
-                outlined
-                dense
-                label="Condition"
-                v-model="searchCondition"
-                :items="searchConditions"
-                v-on:keyup.enter="searchItems()"
+                  outlined
+                  dense
+                  label="Condition"
+                  v-model="searchCondition"
+                  :items="searchConditions"
+                  v-on:keyup.enter="searchItems()"
               >
               </v-select>
             </v-col>
             <v-col cols="auto" sm="3" class="ml-4">
               <v-text-field
-                dense
-                flat
-                hide-details
-                solo-inverted
-                v-model="searchKeyword" v-on:keyup.enter="searchItems()"
+                  dense
+                  flat
+                  hide-details
+                  solo-inverted
+                  v-model="searchKeyword" v-on:keyup.enter="searchItems()"
               ></v-text-field>
             </v-col>
             <v-col cols="auto" sm="1" class="ml-4 mt-2">
@@ -55,16 +53,16 @@
       <template v-for="specialItem in specialItems" v-slot:[specialItem.slotName]="{item}">
         <slot :item="item">
           <v-edit-dialog
-            :return-value.sync="item[specialItem.name]"
-            @open="open"
-            @close="close"
-            :key="specialItem.name"
+              :return-value.sync="item[specialItem.name]"
+              @open="open"
+              @close="close"
+              :key="specialItem.name"
           >
             <v-icon>mdi-code-braces</v-icon>
             <template v-slot:input>
               <v-textarea
-                v-model="item[specialItem.name]"
-                :full-width="true"
+                  v-model="item[specialItem.name]"
+                  :full-width="true"
               ></v-textarea>
               <div class="v-small-dialog__actions">
                 <v-btn @click="postJsonFormatter(item[specialItem.name])">To JSON Formatter</v-btn>
@@ -76,15 +74,15 @@
 
       <template v-slot:item.actions="{ item }" v-if="actionsUse">
         <v-icon
-          small
-          class="mr-2"
-          @click="editItem(item)"
+            small
+            class="mr-2"
+            @click="editItem(item)"
         >
           mdi-pencil
         </v-icon>
         <v-icon
-          small
-          @click="deleteItem(item)"
+            small
+            @click="deleteItem(item)"
         >
           mdi-delete
         </v-icon>
@@ -93,6 +91,12 @@
         no data
       </template>
     </v-data-table>
+    <div class="text-center pt-2">
+      <v-pagination
+          v-model="pageNumber"
+          :length="totalPages"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -114,8 +118,20 @@ export default {
     'items',
     'specialItems',
     'itemsPerPage',
+    'pageNumber',
+    'totalElements',
+    'totalPages',
   ],
-  computed: {},
+  computed: {
+    // pageNumberComputed: {
+    //   get() {
+    //     return this.pageNumber;
+    //   },
+    //   set(data) {
+    //     this.$emit('pageEvent', data);
+    //   },
+    // },
+  },
   data() {
     return {
       page: 1,

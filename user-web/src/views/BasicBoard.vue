@@ -116,9 +116,12 @@ export default {
         headers: [],
         items: [],
         specialItems: [],
-        itemsPerPage: 5,
+        itemsPerPage: 10,
         searchUse: true,
         actionsUse: true,
+        pageNumber: 0,
+        totalElements: 0,
+        totalPages: 0,
       },
       addModalProps: {
         isOpen: false,
@@ -159,13 +162,16 @@ export default {
       this.removeBoardBody.isOpen = !this.removeBoardBody.isOpen
     },
     getGridData() {
-      GET_BOARDS(this.mapPageNameAndBoardType(), 20, 0)
+      GET_BOARDS(this.mapPageNameAndBoardType(), 10, 0)
           .then(({data}) => {
             if (data.boardList.content.length > 0) {
               this.gridProps.headers = makeDefaultGridHeaders(data.boardList.content);
               const defaultGridItems = makeDefaultGridItems(data.boardList.content);
               this.gridProps.items = defaultGridItems.items;
               this.gridProps.specialItems = defaultGridItems.specialItems;
+              this.gridProps.pageNumber = data.boardList.number + 1;
+              this.gridProps.totalElements = data.boardList.totalElements;
+              this.gridProps.totalPages = data.boardList.totalPages;
             }
           })
           .catch(this.changeFailDialog);
