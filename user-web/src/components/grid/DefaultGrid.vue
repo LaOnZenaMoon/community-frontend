@@ -13,7 +13,6 @@
         :item-key="selectKey"
         @item-selected="selectItem"
         hide-default-footer
-        :page.sync="pageNumber"
     >
       <template v-slot:top v-if="searchUse">
         <v-toolbar flat>
@@ -93,8 +92,9 @@
     </v-data-table>
     <div class="text-center pt-2">
       <v-pagination
-          v-model="pageNumber"
+          v-model="pageNumberLocal"
           :length="totalPages"
+          :total-visible="10"
       ></v-pagination>
     </div>
   </div>
@@ -123,19 +123,19 @@ export default {
     'totalPages',
   ],
   computed: {
-    // pageNumberComputed: {
-    //   get() {
-    //     return this.pageNumber;
-    //   },
-    //   set(data) {
-    //     this.$emit('pageEvent', data);
-    //   },
-    // },
+    pageNumberLocal: {
+      get() {
+        return this.pageNumber;
+      },
+      set(data) {
+        console.log(`pageNumberLocal: ${data}`);
+        // this.pageNumber = data;
+        this.$emit('input', data);
+      },
+    },
   },
   data() {
     return {
-      page: 1,
-      pageCount: 0,
       searchKeyword: '',
       searchCondition: '',
       objectDialog: false,
