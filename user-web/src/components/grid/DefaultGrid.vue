@@ -128,8 +128,6 @@ export default {
         return this.pageNumber;
       },
       set(data) {
-        console.log(`pageNumberLocal: ${data}`);
-        // this.pageNumber = data;
         this.$emit('input', data);
       },
     },

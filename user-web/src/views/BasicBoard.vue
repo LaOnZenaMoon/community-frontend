@@ -116,7 +116,7 @@ export default {
         headers: [],
         items: [],
         specialItems: [],
-        itemsPerPage: 10,
+        itemsPerPage: 20,
         searchUse: true,
         actionsUse: true,
         pageNumber: 0,
@@ -162,7 +162,7 @@ export default {
       this.removeBoardBody.isOpen = !this.removeBoardBody.isOpen
     },
     getGridData(pageNumber) {
-      GET_BOARDS(this.mapPageNameAndBoardType(), 10, pageNumber)
+      GET_BOARDS(this.mapPageNameAndBoardType(), this.gridProps.itemsPerPage, pageNumber)
           .then(({data}) => {
             if (data.boardList.content.length > 0) {
               this.gridProps.headers = makeDefaultGridHeaders(data.boardList.content);
@@ -240,7 +240,6 @@ export default {
       }
     },
     onPageChange(data) {
-      console.log(data);
       this.gridProps.pageNumber = data;
       this.getGridData(data - 1);
     },
