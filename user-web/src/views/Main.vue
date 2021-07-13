@@ -11,7 +11,7 @@
       </v-col>
       <v-col cols="6" align-self="start">
         <v-sheet min-height="300px" rounded="lg" class="ma-1 pa-1" color="grey lighten-2">
-
+          <DefaultImage v-bind="{fileName: 'default_picture.jpeg', maxHeight: '300px', maxWidth: '560px'}"></DefaultImage>
         </v-sheet>
         <v-sheet min-height="400px" rounded="lg" class="ma-1 pa-1" color="grey lighten-2">
           <MainGrid v-bind="gridProps2" v-on="{addItem: changeGrid2Modal}"></MainGrid>
@@ -30,10 +30,12 @@ import Modal from "@/components/Modal";
 import Test from '@/data/main';
 import MainGrid from "@/components/grid/MainGrid";
 import DefaultBar from "@/components/chart/LineChart";
+import DefaultImage from "@/components/image/DefaultImage";
 
 
 export default {
   components: {
+    DefaultImage,
     DefaultBar,
     Modal,
     MainGrid,
