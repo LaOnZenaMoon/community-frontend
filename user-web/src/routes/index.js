@@ -5,6 +5,7 @@ import MainLayout from "@/views/MainLayout";
 import Main from "@/views/Main";
 import createBasicBoard from "@/views/createBasicBoard";
 import {FREE_TALK, MAGAZINE, MAIN, MARKET, MULTIMEDIA, NEWS} from "@/common/pageName";
+import PhotoBoard from "@/views/PhotoBoard";
 
 Vue.use(VueRouter)
 
@@ -62,7 +63,8 @@ const routes = [
       {
         path: '/market/board',
         name: MARKET,
-        component: createBasicBoard('Market'),
+        // component: createBasicBoard('Market'),
+        component: PhotoBoard,
       },
     ],
   },
