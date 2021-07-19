@@ -20,7 +20,7 @@
           <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-toolbar-title>Settings</v-toolbar-title>
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
         <slot name="header">
@@ -43,6 +43,7 @@
 export default {
   props: [
     'isOpen',
+    'title',
   ],
   methods: {
     close() {

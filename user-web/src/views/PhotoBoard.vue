@@ -1,20 +1,24 @@
 <template>
   <v-row align='center'>
     <v-col cols='12' align-self='start'>
-      <v-sheet rounded='lg' class='ma-1 pa-1' color='grey lighten-2'>
-        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange}'></PhotoGrid>
+      <v-sheet class='ma-1 pa-1' color='grey lighten-2'>
+        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selected}'></PhotoGrid>
       </v-sheet>
     </v-col>
+
+    <FullDialog v-bind='dialogProps' v-on="{close:this.closeDialog}"></FullDialog>
   </v-row>
 </template>
 
 <script>
 import PhotoGrid from "@/components/grid/PhotoGrid";
+import FullDialog from "@/components/dialog/FullDialog";
 import {GET_BOARDS} from "@/api/modules/boards-api";
 import {makeDefaultGridHeaders, makeDefaultGridItems} from "@/common/utils";
 
 export default {
   components: {
+    FullDialog,
     PhotoGrid,
   },
   created() {
@@ -25,15 +29,19 @@ export default {
     return {
       gridProps: {
         headers: [],
-        keys: ['contentType', 'createdUserIdentifier', 'createdDateTime'],
+        keys: ['contentType'],
         items: [],
         specialItems: [],
-        itemsPerPage: 20,
+        itemsPerPage: 10,
         searchUse: true,
         actionsUse: true,
         pageNumber: 0,
         totalElements: 0,
         totalPages: 0,
+      },
+      dialogProps: {
+        isOpen: false,
+        title: '',
       },
     };
   },
@@ -56,6 +64,13 @@ export default {
     onPageChange(data) {
       this.gridProps.pageNumber = data;
       this.getGridData(data - 1);
+    },
+    selected(data) {
+      console.log(data);
+      this.dialogProps.isOpen = true;
+    },
+    closeDialog() {
+      this.dialogProps.isOpen = false;
     },
   },
 }

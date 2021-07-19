@@ -5,16 +5,16 @@
         :items-per-page.sync="itemsPerPage"
         :page.sync="page"
         :search="search"
-        :sort-desc="sortDesc"
         hide-default-footer
     >
       <template v-slot:header>
         <v-toolbar
             dark
-            color="blue darken-3"
+            color="grey darken-3"
             class="mb-1"
         >
           <v-text-field
+              cols="12"
               v-model="search"
               clearable
               flat
@@ -25,37 +25,6 @@
           ></v-text-field>
           <template v-if="$vuetify.breakpoint.mdAndUp">
             <v-spacer></v-spacer>
-            <v-select
-                v-model="sortBy"
-                flat
-                solo-inverted
-                hide-details
-                :items="keys"
-                prepend-inner-icon="mdi-magnify"
-                label="Sort by"
-            ></v-select>
-            <v-spacer></v-spacer>
-            <v-btn-toggle
-                v-model="sortDesc"
-                mandatory
-            >
-              <v-btn
-                  large
-                  depressed
-                  color="blue"
-                  :value="false"
-              >
-                <v-icon>mdi-arrow-up</v-icon>
-              </v-btn>
-              <v-btn
-                  large
-                  depressed
-                  color="blue"
-                  :value="true"
-              >
-                <v-icon>mdi-arrow-down</v-icon>
-              </v-btn>
-            </v-btn-toggle>
           </template>
         </v-toolbar>
       </template>
@@ -70,34 +39,38 @@
               md="4"
               lg="12"
           >
-            <v-card>
+            <v-card class="custom-card" @click="selectItem">
               <div class="d-flex flex-no-wrap">
                 <v-avatar
                     class="ma-3"
-                    size="125"
+                    size="100"
                     tile
                     color="grey"
                 >
                   <v-img :src="item.src"></v-img>
                 </v-avatar>
 
-                <v-list dense>
-                  <v-card-title class="subheading font-weight-bold">
-                    {{ item.title }}
-                  </v-card-title>
+                <div>
+                  <v-row>
+                    <v-card-title class="subheading font-weight-bold">
+                      {{ item.title }}
+                    </v-card-title>
+                  </v-row>
+                  <v-row>
+                    <v-card-text>
+                      <font-awesome-icon :icon="['fas', 'clipboard']"></font-awesome-icon>
+                      {{ item['contentType'] }}
+                    </v-card-text>
 
-                  <v-list-item
-                      v-for="(key, index) in filteredKeys"
-                      :key="index"
-                  >
-                    <v-list-item-content
-                        class="align-end"
-                        :class="{ 'blue--text': sortBy === key }"
-                    >
-                      {{ item[key] }}
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
+                    <v-card-text>
+                      <font-awesome-icon :icon="['fas', 'user']"></font-awesome-icon>
+                      {{ item['createdUserIdentifier'] }}
+                      <font-awesome-icon :icon="['fas', 'calendar']"></font-awesome-icon>
+                      {{ item['createdDateTime'] }}
+                    </v-card-text>
+                  </v-row>
+                </div>
+
               </div>
             </v-card>
           </v-col>
@@ -118,21 +91,15 @@
 export default {
   props: [
     'title',
-    'searchConditions',
     'keys',
     'items',
     'itemsPerPage',
     'pageNumber',
-    'totalElements',
     'totalPages',
-      'sortBy',
   ],
   data() {
     return {
-      itemsPerPageArray: [4, 8, 12],
       search: '',
-      filter: {},
-      sortDesc: false,
       page: 1,
     }
   },
@@ -152,10 +119,28 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    selectItem(data) {
+      this.$emit('selectItem', data);
+    },
+  },
 }
 </script>
 
 <style scoped>
+.v-card__title {
+  padding: 22px 16px 16px 16px;
+}
 
+.v-card__text {
+  padding: 3px 16px;
+}
+
+svg {
+  margin: 0px 5px;
+}
+
+.custom-card {
+  cursor: pointer;
+}
 </style>
