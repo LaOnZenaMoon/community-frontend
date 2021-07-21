@@ -2,19 +2,53 @@
   <v-row align='center'>
     <v-col cols='12' align-self='start'>
       <v-sheet class='ma-1 pa-1' color='grey lighten-2'>
-        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selected}'></PhotoGrid>
+        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selectItem}'></PhotoGrid>
       </v-sheet>
     </v-col>
 
-    <FullDialog v-bind='dialogProps' v-on="{close:this.closeDialog}"></FullDialog>
+    <FullDialog v-bind='editModalProps' v-on="{close:this.closeDialog}">
+      <template slot="body">
+        <v-text-field
+            label="BoardId"
+            v-model="editBoardBody.id"
+            disabled
+        />
+        <v-select
+            label="Board Type"
+            v-model="editBoardBody.boardType"
+            :items="this.boardTypes"
+            item-text="key"
+            item-value="value"
+            persistent-hint
+            return-object
+            single-line
+        />
+        <v-select
+            label="Content Type"
+            v-model="editBoardBody.contentType"
+            :items="this.contentTypes"
+            item-text="key"
+            item-value="value"
+            persistent-hint
+            return-object
+            single-line
+        />
+        <v-textarea
+            label="Content"
+            v-model="editBoardBody.content"
+        />
+      </template>
+    </FullDialog>
   </v-row>
 </template>
 
 <script>
 import PhotoGrid from "@/components/grid/PhotoGrid";
 import FullDialog from "@/components/dialog/FullDialog";
-import {GET_BOARDS} from "@/api/modules/boards-api";
+import {GET_BOARD, GET_BOARDS} from "@/api/modules/boards-api";
 import {makeDefaultGridHeaders, makeDefaultGridItems} from "@/common/utils";
+import {mapMutations} from "vuex";
+import {GET_BOARD_TYPES, GET_CONTENT_TYPES} from "@/api/modules/codes-api";
 
 export default {
   components: {
@@ -23,6 +57,8 @@ export default {
   },
   created() {
     this.pageName = this.$route.name;
+    this.getBoardTypes();
+    this.getContentTypes();
     this.getGridData(0);
   },
   data() {
@@ -39,13 +75,21 @@ export default {
         totalElements: 0,
         totalPages: 0,
       },
-      dialogProps: {
+      editModalProps: {
         isOpen: false,
         title: '',
+        commonInformation: true,
       },
+      editBoardBody: {},
+      boardTypes: [],
+      contentTypes: [],
     };
   },
   methods: {
+    ...mapMutations({
+      changeSuccessDialog: 'commonDialog/changeSuccessDialog',
+      changeFailDialog: 'commonDialog/changeFailDialog',
+    }),
     getGridData(pageNumber) {
       GET_BOARDS('MARKET', this.gridProps.itemsPerPage, pageNumber)
           .then(({data}) => {
@@ -65,12 +109,32 @@ export default {
       this.gridProps.pageNumber = data;
       this.getGridData(data - 1);
     },
-    selected(data) {
-      console.log(data);
-      this.dialogProps.isOpen = true;
+    selectItem(item) {
+      this.editModalProps.isOpen = true;
+      GET_BOARD(item.id)
+          .then(({data}) => {
+            this.editBoardBody = data;
+            console.log(data);
+            Object.assign(this.editModalProps, data);
+          })
+          .catch(this.changeFailDialog);
     },
     closeDialog() {
-      this.dialogProps.isOpen = false;
+      this.editModalProps.isOpen = false;
+    },
+    getBoardTypes() {
+      GET_BOARD_TYPES()
+          .then(({data}) => {
+            this.boardTypes = data;
+          })
+          .catch(this.changeFailDialog);
+    },
+    getContentTypes() {
+      GET_CONTENT_TYPES()
+          .then(({data}) => {
+            this.contentTypes = data;
+          })
+          .catch(this.changeFailDialog);
     },
   },
 }

@@ -8,24 +8,18 @@
         hide-default-footer
     >
       <template v-slot:header>
-        <v-toolbar
-            dark
-            color="grey darken-3"
-            class="mb-1"
-        >
-          <v-text-field
-              cols="12"
-              v-model="search"
-              clearable
-              flat
-              solo-inverted
-              hide-details
-              prepend-inner-icon="mdi-magnify"
-              label="Search"
-          ></v-text-field>
-          <template v-if="$vuetify.breakpoint.mdAndUp">
-            <v-spacer></v-spacer>
-          </template>
+        <v-toolbar class="mb-1">
+          <v-col cols="6">
+            <v-text-field
+                v-model="search"
+                clearable
+                flat
+                solo-inverted
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                label="Search"
+            ></v-text-field>
+          </v-col>
         </v-toolbar>
       </template>
 
@@ -34,12 +28,11 @@
           <v-col
               v-for="item in props.items"
               :key="item.name"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="12"
+              cols="6"
           >
-            <v-card class="custom-card" @click="selectItem">
+            <v-card class="custom-card" @click="selectItem(item)">
+              <input type="hidden" name="itemId" v-model="item.id">
+
               <div class="d-flex flex-no-wrap">
                 <v-avatar
                     class="ma-3"
