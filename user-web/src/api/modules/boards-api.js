@@ -1,6 +1,10 @@
 import {authentication, noAuthentication} from "@/api";
 
-const GET_BOARDS = (boardType, pageSize, pageNumber) => {
+const GET_BOARDS = (boardType, pageSize, pageNumber, searchType, searchContent) => {
+  if (searchType && searchContent) {
+    return noAuthentication.get(`/community-api/board/boardType/${boardType}?pageSize=${pageSize}&pageNumber=${pageNumber}&searchType=${searchType}&searchContent=${searchContent}`);
+  }
+
   return noAuthentication.get(`/community-api/board/boardType/${boardType}?pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 

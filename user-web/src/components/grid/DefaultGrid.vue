@@ -95,6 +95,7 @@
           v-model="pageNumberLocal"
           :length="totalPages"
           :total-visible="10"
+          color="grey"
       ></v-pagination>
     </div>
   </div>

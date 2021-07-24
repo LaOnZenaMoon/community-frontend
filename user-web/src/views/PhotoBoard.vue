@@ -2,7 +2,7 @@
   <v-row align='center'>
     <v-col cols='12' align-self='start'>
       <v-sheet class='ma-1 pa-1' color='grey lighten-2'>
-        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selectItem}'></PhotoGrid>
+        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selectItem,searchItem:this.searchItem}'></PhotoGrid>
       </v-sheet>
     </v-col>
 
@@ -36,6 +36,7 @@
         <v-textarea
             label="Content"
             v-model="editBoardBody.content"
+            disabled
         />
       </template>
     </FullDialog>
@@ -46,7 +47,6 @@
 import PhotoGrid from "@/components/grid/PhotoGrid";
 import FullDialog from "@/components/dialog/FullDialog";
 import {GET_BOARD, GET_BOARDS} from "@/api/modules/boards-api";
-import {makeDefaultGridHeaders, makeDefaultGridItems} from "@/common/utils";
 import {mapMutations} from "vuex";
 import {GET_BOARD_TYPES, GET_CONTENT_TYPES} from "@/api/modules/codes-api";
 
@@ -74,13 +74,15 @@ export default {
         pageNumber: 0,
         totalElements: 0,
         totalPages: 0,
+        searchType: 'TITLE',
+        searchContent: '',
       },
       editModalProps: {
         isOpen: false,
         title: '',
         commonInformation: true,
       },
-      editBoardBody: {},
+      editBoardBody: {boardType: ''},
       boardTypes: [],
       contentTypes: [],
     };
@@ -91,13 +93,10 @@ export default {
       changeFailDialog: 'commonDialog/changeFailDialog',
     }),
     getGridData(pageNumber) {
-      GET_BOARDS('MARKET', this.gridProps.itemsPerPage, pageNumber)
+      GET_BOARDS('MARKET', this.gridProps.itemsPerPage, pageNumber, this.gridProps.searchType, this.gridProps.searchContent)
           .then(({data}) => {
             if (data.boardList.content.length > 0) {
-              this.gridProps.headers = makeDefaultGridHeaders(data.boardList.content);
-              const defaultGridItems = makeDefaultGridItems(data.boardList.content);
-              this.gridProps.items = defaultGridItems.items;
-              this.gridProps.specialItems = defaultGridItems.specialItems;
+              this.gridProps.items = data.boardList.content;
               this.gridProps.pageNumber = data.boardList.number + 1;
               this.gridProps.totalElements = data.boardList.totalElements;
               this.gridProps.totalPages = data.boardList.totalPages;
@@ -114,7 +113,6 @@ export default {
       GET_BOARD(item.id)
           .then(({data}) => {
             this.editBoardBody = data;
-            console.log(data);
             Object.assign(this.editModalProps, data);
           })
           .catch(this.changeFailDialog);
@@ -136,6 +134,10 @@ export default {
           })
           .catch(this.changeFailDialog);
     },
+    searchItem(searchContent) {
+      this.gridProps.searchContent = searchContent;
+      this.getGridData(0);
+    }
   },
 }
 </script>

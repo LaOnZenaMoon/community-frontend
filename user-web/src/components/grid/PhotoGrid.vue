@@ -4,7 +4,6 @@
         :items="items"
         :items-per-page.sync="itemsPerPage"
         :page.sync="page"
-        :search="search"
         hide-default-footer
     >
       <template v-slot:header>
@@ -18,6 +17,7 @@
                 hide-details
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
+                @keyup.enter="searchItem"
             ></v-text-field>
           </v-col>
         </v-toolbar>
@@ -75,6 +75,7 @@
           v-model="pageNumberLocal"
           :length="totalPages"
           :total-visible="10"
+          color="grey"
       ></v-pagination>
     </div>
   </div>
@@ -116,6 +117,9 @@ export default {
     selectItem(data) {
       this.$emit('selectItem', data);
     },
+    searchItem() {
+      this.$emit('searchItem', this.search);
+    }
   },
 }
 </script>
