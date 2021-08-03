@@ -5,8 +5,9 @@
         :items-per-page.sync="itemsPerPage"
         :page.sync="page"
         hide-default-footer
+        no-data-text="none"
     >
-      <template v-slot:header>
+      <template v-slot:header v-if="headerUse">
         <v-toolbar class="mb-1">
           <v-col cols="6"></v-col>
           <v-col cols="6">
@@ -24,26 +25,23 @@
         </v-toolbar>
       </template>
 
+      <template slot="no-data">
+        <v-row>
+          <v-col>
+            <v-sheet class="ma-1 pa-1 text-center" color="white" v-text="noDataText"></v-sheet>
+          </v-col>
+        </v-row>
+      </template>
+
       <template v-slot:default="props">
         <v-row>
           <v-col
+              cols="12"
               v-for="item in props.items"
               :key="item.name"
-              cols="6"
           >
             <v-card class="custom-card" @click="selectItem(item)">
-              <input type="hidden" name="itemId" v-model="item.id">
-
               <div class="d-flex flex-no-wrap">
-                <v-avatar
-                    class="ma-3"
-                    size="100"
-                    tile
-                    color="grey"
-                >
-                  <v-img :src="item.src"></v-img>
-                </v-avatar>
-
                 <div>
                   <v-row>
                     <v-card-title class="subheading font-weight-bold">
@@ -51,7 +49,7 @@
                     </v-card-title>
                   </v-row>
                   <v-row>
-                    <v-card-text>
+                    <v-card-text v-if="contentType">
                       <font-awesome-icon :icon="['fas', 'clipboard']"></font-awesome-icon>
                       {{ item['contentType'] }}
                     </v-card-text>
@@ -71,7 +69,8 @@
         </v-row>
       </template>
     </v-data-iterator>
-    <div class="text-center pt-2">
+
+    <div class="text-center pt-2" v-if="footerUse">
       <v-pagination
           v-model="pageNumberLocal"
           :length="totalPages"
@@ -91,11 +90,15 @@ export default {
     'itemsPerPage',
     'pageNumber',
     'totalPages',
+    'headerUse',
+    'footerUse',
+    'contentType',
   ],
   data() {
     return {
       search: '',
       page: 1,
+      noDataText: 'No data'
     }
   },
   computed: {
@@ -127,11 +130,11 @@ export default {
 
 <style scoped>
 .v-card__title {
-  padding: 22px 16px 16px 16px;
+  padding: 22px 30px 0px 30px;
 }
 
 .v-card__text {
-  padding: 3px 16px;
+  padding: 10px 30px 20px 30px;
 }
 
 svg {

@@ -38,7 +38,7 @@ export default {
       noAuthentication.signOut();
     },
     home() {
-      this.$router.push('/main');
+      this.$router.push('/home');
     }
   }
 }

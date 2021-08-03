@@ -1,95 +1,44 @@
 <template>
   <div>
     <v-container>
-      <v-row dense>
-        <v-col
-            v-for="(item, i) in items"
-            :key="i"
-            cols="6"
-        >
-          <v-card
-              :color="item.color"
-              dark
-          >
-            <div class="d-flex flex-no-wrap justify-space-between">
-              <div>
-                <v-card-title
-                    class="text-h5"
-                    v-text="item.title"
-                ></v-card-title>
-
-                <v-card-subtitle v-text="item.artist"></v-card-subtitle>
-
-                <v-card-actions>
-<!--                  <v-btn-->
-<!--                      v-if="item.artist === 'Ellie Goulding'"-->
-<!--                      class="ml-2 mt-3"-->
-<!--                      fab-->
-<!--                      icon-->
-<!--                      height="40px"-->
-<!--                      right-->
-<!--                      width="40px"-->
-<!--                  >-->
-<!--                    <v-icon>mdi-play</v-icon>-->
-<!--                  </v-btn>-->
-
-<!--                  <v-btn-->
-<!--                      v-else-->
-<!--                      class="ml-2 mt-5"-->
-<!--                      outlined-->
-<!--                      rounded-->
-<!--                      small-->
-<!--                  >-->
-<!--                    START RADIO-->
-<!--                  </v-btn>-->
-                </v-card-actions>
-              </div>
-
-              <v-avatar
-                  class="ma-3"
-                  size="125"
-                  tile
+      <v-row>
+        <v-col cols="12">
+          <v-sheet class="ma-1 pa-1" color="grey lighten-2">
+            <v-carousel height="300px">
+              <v-carousel-item
+                  v-for="(slide, i) in slides"
+                  :key="i"
               >
-                <v-img :src="item.src"></v-img>
-              </v-avatar>
-            </div>
-          </v-card>
+                <v-sheet
+                    :color="colors[i]"
+                    height="100%"
+                    tile
+                >
+                  <v-row
+                      class="fill-height"
+                      align="center"
+                      justify="center"
+                  >
+                    <div class="text-h2">
+                      {{ slide }} Slide
+                    </div>
+                  </v-row>
+                </v-sheet>
+              </v-carousel-item>
+            </v-carousel>
+          </v-sheet>
         </v-col>
       </v-row>
-    </v-container>
-    <v-container fluid>
-      <v-row dense>
-        <v-col
-            v-for="card in cards"
-            :key="card.title"
-            :cols="card.flex"
-        >
-          <v-card>
-            <v-img
-                :src="card.src"
-                class="white--text align-end"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                height="200px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+      <v-row>
+        <v-col cols="6">
+          <v-sheet class="ma-1 pa-1" color="grey lighten-2">
+            <PlainGrid v-bind="gridProps"></PlainGrid>
+          </v-sheet>
+        </v-col>
+        <v-col cols="6">
+          <v-sheet class="ma-1 pa-1" color="grey lighten-2">
+            <PlainGrid v-bind="gridProps"></PlainGrid>
+          </v-sheet>
         </v-col>
       </v-row>
     </v-container>
@@ -97,81 +46,54 @@
 </template>
 
 <script>
-import Test from '@/data/main';
 
 
+import PlainGrid from "@/components/grid/PlainGrid";
+import {GET_BOARDS} from "@/api/modules/boards-api";
 export default {
-  components: {},
+  components: {
+    PlainGrid
+  },
+  created() {
+    this.getGridData(0);
+  },
   data() {
     return {
-      gridProps1: {
-        headers: Test.header1,
-        items: Test.items1,
-        itemsPerPage: 10,
-      },
-      gridProps2: {
-        headers: Test.header2,
-        items: Test.items2,
-        itemsPerPage: 10,
-      },
-      grid1ModalProps: {
-        isOpen: false,
-        title: 'test1 modal',
-      },
-      grid2ModalProps: {
-        isOpen: false,
-        title: 'test2 modal',
-      },
-      items: [
-        {
-          color: '#1F7087',
-          src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-          title: 'Supermodel',
-          artist: 'Foster the People',
-        },
-        {
-          color: '#952175',
-          src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
-          title: 'Halcyon Days',
-          artist: 'Ellie Goulding',
-        },
-        {
-          color: '#1F7087',
-          src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-          title: 'Supermodel',
-          artist: 'Foster the People',
-        },
-        {
-          color: '#952175',
-          src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
-          title: 'Halcyon Days',
-          artist: 'Ellie Goulding',
-        },
+      slides: [
+        'First',
+        'Second',
+        'Third',
+        'Fourth',
+        'Fifth',
       ],
-      cards: [
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 3 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 3 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 3 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 3 },
+      colors: [
+        'green',
+        'secondary',
+        'yellow darken-4',
+        'red lighten-2',
+        'orange darken-1',
       ],
+      gridProps: {
+        itemsPerPage: 5,
+        pageNumber: 0,
+        totalElements: 0,
+        totalPages: 0,
+        contentType: false,
+      },
     }
   },
   methods: {
-    changeGrid1Modal() {
-      this.grid1ModalProps.isOpen = !this.grid1ModalProps.isOpen
-    },
-    changeGrid2Modal() {
-      this.grid2ModalProps.isOpen = !this.grid2ModalProps.isOpen
-    },
-    getHealth(healthStatus) {
-      if (healthStatus === 'a') return 'red'
-      else if (healthStatus === 'b') return 'orange'
-      else if (healthStatus === 'c') return 'yellow'
-      else if (healthStatus === 'd') return 'green'
-      else return 'blue'
-    },
-    randomScalingFactor() {
-      return Math.round(Math.random() * 100);
+    getGridData(pageNumber) {
+      GET_BOARDS('NEWS', this.gridProps.itemsPerPage, pageNumber, this.gridProps.searchType, this.gridProps.searchContent)
+          .then(({data}) => {
+            if (data.boardList.content.length > 0) {
+              this.gridProps.items = data.boardList.content;
+              this.gridProps.pageNumber = data.boardList.number + 1;
+              this.gridProps.totalElements = data.boardList.totalElements;
+              this.gridProps.totalPages = data.boardList.totalPages;
+            }
+          })
+          .catch(this.changeFailDialog);
     },
   }
   ,

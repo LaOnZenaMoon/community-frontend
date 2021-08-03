@@ -1,12 +1,12 @@
 <template>
-  <v-row align='center'>
-    <v-col cols='12' align-self='start'>
-      <v-sheet class='ma-1 pa-1' color='grey lighten-2'>
-        <PhotoGrid v-bind='gridProps' v-on='{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selectItem,searchItem:this.searchItem}'></PhotoGrid>
+  <v-row align="center">
+    <v-col cols="12" align-self="start">
+      <v-sheet class="ma-1 pa-1" color="grey lighten-2">
+        <PhotoGrid v-bind="gridProps" v-on="{input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange,selectItem:this.selectItem,searchItem:this.searchItem}"></PhotoGrid>
       </v-sheet>
     </v-col>
 
-    <FullDialog v-bind='editModalProps' v-on="{close:this.closeDialog}">
+    <FullDialog v-bind="editModalProps" v-on="{close:this.closeDialog}">
       <template slot="body">
         <v-text-field
             label="BoardId"

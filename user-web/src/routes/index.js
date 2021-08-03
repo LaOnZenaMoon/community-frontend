@@ -4,7 +4,7 @@ import Login from "@/views/Login";
 import MainLayout from "@/views/MainLayout";
 import Main from "@/views/Main";
 import createBasicBoard from "@/views/createBasicBoard";
-import {FREE_TALK, MAGAZINE, MAIN, MARKET, MULTIMEDIA, NEWS} from "@/common/pageName";
+import {FREE_TALK, MAGAZINE, HOME, MARKET, MULTIMEDIA, NEWS} from "@/common/pageName";
 import PhotoBoard from "@/views/PhotoBoard";
 
 Vue.use(VueRouter)
@@ -36,8 +36,8 @@ const routes = [
     beforeEnter: movePage(),
     children: [
       {
-        path: '/main',
-        name: MAIN,
+        path: '/home',
+        name: HOME,
         component: Main
       },
       {

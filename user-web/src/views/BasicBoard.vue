@@ -1,8 +1,8 @@
 <template>
-  <v-row align='center'>
-    <v-col cols='12' align-self='start'>
-      <v-sheet class='ma-1 pa-1' color='grey lighten-2'>
-        <DefaultGrid v-bind='gridProps' v-on='{addItem: this.changeAddBoardModal,editItem: this.getBoard,deleteItem: this.changeRemoveBoardModal,input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange}'></DefaultGrid>
+  <v-row align="center">
+    <v-col cols="12" align-self="start">
+      <v-sheet class="ma-1 pa-1" color="grey lighten-2">
+        <DefaultGrid v-bind="gridProps" v-on="{addItem: this.changeAddBoardModal,editItem: this.getBoard,deleteItem: this.changeRemoveBoardModal,input:this.onPageChange,previous:this.onPageChange,next:this.onPageChange}"></DefaultGrid>
       </v-sheet>
     </v-col>
     <Dialog v-bind="addModalProps" v-on="{closeModal: changeAddBoardModal}">
