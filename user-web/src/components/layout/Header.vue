@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app clipped-right flat height="50" color="#DFE4ED">
+    <v-app-bar app clipped-right flat height="50">
       <v-col cols="auto">
         <v-icon class="mx-auto" @click.stop="changeLeftDrawer">mdi-menu</v-icon>
       </v-col>

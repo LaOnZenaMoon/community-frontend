@@ -3,7 +3,6 @@
       :value="getLeftDrawer"
       app
       width="250"
-      color="#2f4050"
   >
     <v-sheet
         height="100"

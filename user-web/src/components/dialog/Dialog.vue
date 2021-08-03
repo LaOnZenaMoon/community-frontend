@@ -2,7 +2,6 @@
   <v-dialog persistent v-model="isOpen" max-width="80%">
     <v-card>
       <v-toolbar
-          color="#8095A8"
           dark
           flat
       >

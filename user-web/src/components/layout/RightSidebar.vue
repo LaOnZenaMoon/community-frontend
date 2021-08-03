@@ -5,7 +5,6 @@
         clipped
         right
         width="200"
-        color="#2f4050"
         permanent
         expand-on-hover
     >
