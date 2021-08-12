@@ -76,7 +76,7 @@ const authentication = {
 
 const noAuthentication = {
   signIn(payload) {
-    return request.post(`/auth-api/authenticate`, payload);
+    return request.post(`/auth-api/authentication`, payload);
   },
   signOut() {
     removeToken();

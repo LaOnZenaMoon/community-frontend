@@ -1,7 +1,7 @@
 import {authentication} from "@/api";
 
 const POST_AUTHENTICATE = (payload) => {
-  return authentication.post(`/authenticate`, payload);
+  return authentication.post(`/authentication`, payload);
 };
 
 const GET_USER_LIST = (usersType) => {
