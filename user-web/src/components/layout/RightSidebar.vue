@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer
-        :value="getRightDrawer"
+        :value="GET_RIGHT_DRAWER"
         app
         clipped
         right
@@ -35,7 +35,7 @@ import { mapGetters } from 'vuex'
 export default {
     computed: {
         ...mapGetters({
-            getRightDrawer: 'sidebar/getRightDrawer',
+            GET_RIGHT_DRAWER: 'sidebar/GET_RIGHT_DRAWER',
         }),
     },
 }

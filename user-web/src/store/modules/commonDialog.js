@@ -10,38 +10,38 @@ const state = {
 };
 
 const getters = {
-  getSuccessDialog(state) {
+  GET_SUCCESS_DIALOG(state) {
     return state.successDialog;
   },
-  getSuccessMessage(state) {
+  GET_SUCCESS_MESSAGE(state) {
     return state.successMessage;
   },
-  getFailDialog(state) {
+  GET_FAIL_DIALOG(state) {
     return state.failDialog;
   },
-  getFailMessage(state) {
+  GET_FAIL_MESSAGE(state) {
     return state.failMessage;
   },
-  getWarnDialog(state) {
+  GET_WARN_DIALOG(state) {
     return state.warnDialog;
   },
-  getWarnMessage(state) {
+  GET_WARN_MESSAGE(state) {
     return state.warnMessage;
   },
 };
 
 const mutations = {
-  changeSuccessDialog(state, message) {
+  CHANGE_SUCCESS_DIALOG(state, message) {
     state.successDialog = !state.successDialog;
     state.successMessage = message;
   },
-  changeFailDialog(state, error) {
+  CHANGE_FAIL_DIALOG(state, error) {
     state.failDialog = !state.failDialog;
     if (error.response) {
       state.failMessage = error.response.data.message;
     }
   },
-  changeWarnDialog(state, message) {
+  CHANGE_WARN_DIALOG(state, message) {
     state.warnDialog = !state.warnDialog;
     state.warnMessage = message;
   },

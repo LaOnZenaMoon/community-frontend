@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    :value="getWarnDialog"
+    :value="GET_WARN_DIALOG"
     max-width="290"
     persistent
   >
@@ -11,14 +11,14 @@
 
       <v-card-text>
         <div class="pt-5">The request is not supported</div>
-<!--        <div v-text="getWarnMessage"></div>-->
+<!--        <div v-text="GET_WARN_MESSAGE"></div>-->
       </v-card-text>
 
       <v-card-actions>
         <v-spacer/>
         <slot name="footer">
         </slot>
-        <v-btn @click="changeWarnDialog()">
+        <v-btn @click="CHANGE_WARN_DIALOG()">
           <font-awesome-icon :icon="['fas', 'window-close']"></font-awesome-icon>
         </v-btn>
       </v-card-actions>
@@ -32,13 +32,13 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      getWarnDialog: 'commonDialog/getWarnDialog',
-      getWarnMessage: 'commonDialog/getWarnMessage',
+      GET_WARN_DIALOG: 'commonDialog/GET_WARN_DIALOG',
+      GET_WARN_MESSAGE: 'commonDialog/GET_WARN_MESSAGE',
     }),
   },
   methods: {
     ...mapMutations({
-      changeWarnDialog: 'commonDialog/changeWarnDialog',
+      CHANGE_WARN_DIALOG: 'commonDialog/CHANGE_WARN_DIALOG',
     }),
   },
 }

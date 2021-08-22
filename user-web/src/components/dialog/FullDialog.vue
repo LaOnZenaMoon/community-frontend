@@ -27,31 +27,13 @@
           <v-btn
               fab
               x-small
-              @click="close()"
+              @click="save()"
           >
             <font-awesome-icon :icon="['fas', 'save']"></font-awesome-icon>
           </v-btn>
         </slot>
       </v-toolbar>
       <v-card-text class="pa-5">
-        <template v-if="commonInformation">
-          <v-row>
-            <v-col>
-              <v-text-field
-                  label="Created User ID"
-                  disabled
-                  v-model="createdUserIdentifier"
-              />
-            </v-col>
-            <v-col>
-              <v-text-field
-                  label="Created At"
-                  disabled
-                  v-model="createdDateTime"
-              />
-            </v-col>
-          </v-row>
-        </template>
         <slot name="body"></slot>
       </v-card-text>
       <div style="flex: 1 1 auto;"></div>
@@ -69,6 +51,9 @@ export default {
     'createdDateTime',
   ],
   methods: {
+    save() {
+      this.$emit('save');
+    },
     close() {
       this.$emit('close');
     },

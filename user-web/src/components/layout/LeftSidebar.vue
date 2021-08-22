@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-      :value="getLeftDrawer"
+      :value="GET_LEFT_DRAWER"
       app
       width="250"
   >
@@ -10,9 +10,8 @@
         align="center"
         class="logo-style"
     >
-      <h3>User Web</h3>
-      <h4>LaOnZenaMoon</h4>
-      <!--      <h4 v-text="getUserName()"></h4>-->
+      <h3>LaOnZenaMoon Web</h3>
+      <h4 v-text="getUserName()"></h4>
     </v-sheet>
 
     <v-list>
@@ -66,23 +65,15 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-group
-        :value="false"
-      >
-        <template v-slot:prependIcon>
-          <font-awesome-icon :icon="['fas', 'project-diagram']"></font-awesome-icon>
-        </template>
-        <template v-slot:activator>
-          <v-list-item-title>Graph</v-list-item-title>
-        </template>
+      <v-list-item to="/user/management">
+        <v-list-item-icon>
+          <font-awesome-icon :icon="['fas', 'users']"></font-awesome-icon>
+        </v-list-item-icon>
 
-        <v-list-item to="#">
-          <v-list-item-action></v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Sample</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
+        <v-list-item-content>
+          <v-list-item-title>User</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-list-group
           :value="false"
@@ -94,10 +85,38 @@
           <v-list-item-title>Settings</v-list-item-title>
         </template>
 
-        <v-list-item to="#">
+        <v-list-item to="/setting/user/role/management">
           <v-list-item-action></v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Sample</v-list-item-title>
+            <v-list-item-title>User Role</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/setting/role/management">
+          <v-list-item-action></v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Role</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/setting/role/resource/management">
+          <v-list-item-action></v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Role Resource</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/setting/resource/management">
+          <v-list-item-action></v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Resource</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/setting/role/hierarchy/management">
+          <v-list-item-action></v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Role Hierarchy</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -115,7 +134,7 @@ import {movePage} from "@/api/api-control";
 export default {
   computed: {
     ...mapGetters({
-      getLeftDrawer: 'sidebar/getLeftDrawer',
+      GET_LEFT_DRAWER: 'sidebar/GET_LEFT_DRAWER',
     }),
   },
   methods: {

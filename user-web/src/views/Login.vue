@@ -11,6 +11,12 @@
 <!--            height="600px"-->
 <!--            rounded-->
 <!--          ></v-img>-->
+          <v-card class="elevation-12"
+                  height="600px"
+                  rounded
+                  color="grey"
+          >
+          </v-card>
         </v-col>
         <v-col cols="4">
           <v-card class="elevation-12"

@@ -10,8 +10,9 @@
       <template v-slot:header v-if="headerUse">
         <v-toolbar class="mb-1">
           <v-col cols="6"></v-col>
-          <v-col cols="6">
+          <v-col cols="5">
             <v-text-field
+                v-if="searchUse"
                 v-model="search"
                 clearable
                 flat
@@ -21,6 +22,9 @@
                 label="Search"
                 @keyup.enter="searchItem"
             ></v-text-field>
+          </v-col>
+          <v-col cols="1">
+            <v-icon color="lightgrey" @click="addItem">mdi-plus-box-outline</v-icon>
           </v-col>
         </v-toolbar>
       </template>
@@ -44,14 +48,18 @@
               <div class="d-flex flex-no-wrap">
                 <div>
                   <v-row>
-                    <v-card-title class="subheading font-weight-bold">
-                      {{ item.title }}
+                    <v-card-title class="subheading font-weight-bold" v-if="title">
+                      {{ item['title'] }}
                     </v-card-title>
                   </v-row>
                   <v-row>
                     <v-card-text v-if="contentType">
                       <font-awesome-icon :icon="['fas', 'clipboard']"></font-awesome-icon>
                       {{ item['contentType'] }}
+                    </v-card-text>
+
+                    <v-card-text class="mt-4" v-if="content">
+                      {{ item['content'] }}
                     </v-card-text>
 
                     <v-card-text>
@@ -84,15 +92,17 @@
 <script>
 export default {
   props: [
-    'title',
     'keys',
     'items',
     'itemsPerPage',
     'pageNumber',
     'totalPages',
+    'searchUse',
     'headerUse',
     'footerUse',
+    'title',
     'contentType',
+    'content',
   ],
   data() {
     return {
@@ -123,7 +133,10 @@ export default {
     },
     searchItem() {
       this.$emit('searchItem', this.search);
-    }
+    },
+    addItem() {
+      this.$emit('addItem');
+    },
   },
 }
 </script>

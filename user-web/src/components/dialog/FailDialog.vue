@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    :value="getFailDialog"
+    :value="GET_FAIL_DIALOG"
     max-width="290"
     persistent
   >
@@ -12,14 +12,14 @@
 
       <v-card-text>
         <div class="pt-5">The request is failed.</div>
-        <div v-text="getFailMessage">Unknown error has occurred.</div>
+        <div v-text="GET_FAIL_MESSAGE">Unknown error has occurred.</div>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer/>
         <slot name="footer">
         </slot>
-        <v-btn @click="changeFailDialog('')">
+        <v-btn @click="CHANGE_FAIL_DIALOG('')">
           <font-awesome-icon :icon="['fas', 'window-close']"></font-awesome-icon>
         </v-btn>
       </v-card-actions>
@@ -33,13 +33,13 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      getFailDialog: 'commonDialog/getFailDialog',
-      getFailMessage: 'commonDialog/getFailMessage',
+      GET_FAIL_DIALOG: 'commonDialog/GET_FAIL_DIALOG',
+      GET_FAIL_MESSAGE: 'commonDialog/GET_FAIL_MESSAGE',
     }),
   },
   methods: {
     ...mapMutations({
-      changeFailDialog: 'commonDialog/changeFailDialog',
+      CHANGE_FAIL_DIALOG: 'commonDialog/CHANGE_FAIL_DIALOG',
     }),
   },
 }

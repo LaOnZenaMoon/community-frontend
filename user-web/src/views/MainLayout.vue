@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <Header></Header>
-<!--    <RightSidebar></RightSidebar>-->
+    <RightSidebar></RightSidebar>
     <LeftSidebar></LeftSidebar>
 
     <v-theme-provider root>
@@ -22,6 +22,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import LeftSidebar from "@/components/layout/LeftSidebar";
+import RightSidebar from "@/components/layout/RightSidebar";
 import SuccessDialog from "@/components/dialog/SuccessDialog";
 import FailDialog from "@/components/dialog/FailDialog";
 import WarnDialog from "@/components/dialog/WarnDialog";
@@ -34,6 +35,7 @@ export default {
     Header,
     Footer,
     LeftSidebar,
+    RightSidebar,
   },
   data() {
     return {}

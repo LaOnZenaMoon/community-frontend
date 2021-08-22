@@ -6,19 +6,19 @@ const state = {
 };
 
 const getters = {
-    getLeftDrawer(state) {
+    GET_LEFT_DRAWER(state) {
         return state.leftDrawer;
     },
-    getRightDrawer(state) {
+    GET_RIGHT_DRAWER(state) {
         return state.rightDrawer;
     },
 };
 
 const mutations = {
-    changeLeftDrawer(state) {
+    CHANGE_LEFT_DRAWER(state) {
         state.leftDrawer = !state.leftDrawer;
     },
-    changeRightDrawer(state) {
+    CHANGE_RIGHT_DRAWER(state) {
         state.rightDrawer = !state.rightDrawer;
     },
 };

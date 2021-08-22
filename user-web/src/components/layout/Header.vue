@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app clipped-right flat height="50">
       <v-col cols="auto">
-        <v-icon class="mx-auto" @click.stop="changeLeftDrawer">mdi-menu</v-icon>
+        <v-icon class="mx-auto" @click.stop="CHANGE_LEFT_DRAWER">mdi-menu</v-icon>
       </v-col>
       <v-col cols="auto">
         <v-icon class="mx-auto" @click="home">mdi-home</v-icon>
@@ -31,8 +31,8 @@ import {noAuthentication} from "@/api";
 export default {
   methods: {
     ...mapMutations({
-      changeLeftDrawer: 'sidebar/changeLeftDrawer',
-      changeRightDrawer: 'sidebar/changeRightDrawer',
+      CHANGE_LEFT_DRAWER: 'sidebar/CHANGE_LEFT_DRAWER',
+      CHANGE_RIGHT_DRAWER: 'sidebar/CHANGE_RIGHT_DRAWER',
     }),
     signOut() {
       noAuthentication.signOut();

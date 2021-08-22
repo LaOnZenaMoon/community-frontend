@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    :value="getSuccessDialog"
+    :value="GET_SUCCESS_DIALOG"
     max-width="290"
     persistent
   >
@@ -12,14 +12,14 @@
 
       <v-card-text>
         <div class="pt-5">The request is finished Successfully.</div>
-        <div v-text="getSuccessMessage"></div>
+        <div v-text="GET_SUCCESS_MESSAGE"></div>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer/>
         <slot name="footer">
         </slot>
-        <v-btn @click="changeSuccessDialog('')">
+        <v-btn @click="CHANGE_SUCCESS_DIALOG('')">
           <font-awesome-icon :icon="['fas', 'window-close']"></font-awesome-icon>
         </v-btn>
       </v-card-actions>
@@ -33,13 +33,13 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      getSuccessDialog: 'commonDialog/getSuccessDialog',
-      getSuccessMessage: 'commonDialog/getSuccessMessage',
+      GET_SUCCESS_DIALOG: 'commonDialog/GET_SUCCESS_DIALOG',
+      GET_SUCCESS_MESSAGE: 'commonDialog/GET_SUCCESS_MESSAGE',
     }),
   },
   methods: {
     ...mapMutations({
-      changeSuccessDialog: 'commonDialog/changeSuccessDialog',
+      CHANGE_SUCCESS_DIALOG: 'commonDialog/CHANGE_SUCCESS_DIALOG',
     }),
   },
 }

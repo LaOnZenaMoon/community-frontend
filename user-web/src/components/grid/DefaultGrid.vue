@@ -5,7 +5,6 @@
         :headers="headers" :items="items" :items-per-page="itemsPerPage"
         :header-props="{
         }"
-        :search="searchKeyword"
         :custom-filter="filterCustom"
         :calculate-widths="true"
         :show-select="selectUse"
@@ -16,30 +15,31 @@
     >
       <template v-slot:top v-if="searchUse">
         <v-toolbar flat>
-          <v-row no-gutters class="mt-7">
+          <v-row no-gutters class="mt-2">
             <v-spacer></v-spacer>
             <v-col cols="auto" sm="2" class="">
-              <v-select
-                  outlined
-                  dense
-                  label="Condition"
-                  v-model="searchCondition"
-                  :items="searchConditions"
-                  v-on:keyup.enter="searchItems()"
-              >
-              </v-select>
+<!--              <v-select-->
+<!--                  outlined-->
+<!--                  dense-->
+<!--                  label="Condition"-->
+<!--                  v-model="searchCondition"-->
+<!--                  :items="searchConditions"-->
+<!--                  v-on:keyup.enter="searchItem()"-->
+<!--              >-->
+<!--              </v-select>-->
             </v-col>
             <v-col cols="auto" sm="3" class="ml-4">
               <v-text-field
+                  v-model="search"
                   dense
                   flat
                   hide-details
                   solo-inverted
-                  v-model="searchKeyword" v-on:keyup.enter="searchItems()"
+                  v-on:keyup.enter="searchItem()"
               ></v-text-field>
             </v-col>
             <v-col cols="auto" sm="1" class="ml-4 mt-2">
-              <v-icon color="lightgrey" @click="searchItems">mdi-magnify</v-icon>
+              <v-icon color="lightgrey" @click="searchItem">mdi-magnify</v-icon>
             </v-col>
 
             <v-col cols="auto" sm="1" class="mt-2">
@@ -135,16 +135,17 @@ export default {
   },
   data() {
     return {
-      searchKeyword: '',
+      search: '',
       searchCondition: '',
       objectDialog: false,
       objectDialogColor: '',
       objectDialogText: '',
+
     }
   },
   methods: {
-    searchItems() {
-      this.$emit('searchItems', this.searchKeyword);
+    searchItem() {
+      this.$emit('searchItem', this.search);
     },
     addItem() {
       this.$emit('addItem');

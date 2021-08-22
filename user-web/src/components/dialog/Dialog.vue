@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     close() {
-      this.$emit('closeModal');
+      this.$emit('close');
     }
   },
 }

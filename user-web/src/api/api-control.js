@@ -18,17 +18,25 @@ import router from "@/routes";
 //   });
 
 axios.interceptors.response.use((config) => {
-    if (config.status === 401) {
-      moveSignInPage();
-    }
-
     basicLogger('==== Intercept response ====');
     basicLogger(config);
     basicLogger('============================');
     return config;
   },
   (error => {
-    basicLogger(error);
+    basicLogger(error.response);
+
+    if (error.response.status === 401) {
+      basicLogger('Not Authenticated');
+      removeToken();
+      moveSignInPage();
+    }
+
+    if (error.response.status === 403) {
+      basicLogger('Not Authorized');
+      router.push('/auth/not-authorized');
+    }
+
     return Promise.reject(error);
   }));
 
@@ -76,7 +84,7 @@ const authentication = {
 
 const noAuthentication = {
   signIn(payload) {
-    return request.post(`/auth-api/authentication`, payload);
+    return request.post(`/authentication`, payload);
   },
   signOut() {
     removeToken();
@@ -88,7 +96,6 @@ const noAuthentication = {
 };
 
 const setJwtToken = token => {
-  console.log(token);
   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 }
 

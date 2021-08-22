@@ -15,7 +15,9 @@ const removeToken = () => {
   window.localStorage.removeItem(TOKEN_KEY);
 };
 
-const getUserId = () => jwtDecode(getToken()).sub;
+const getUserId = () => jwtDecode(getToken()).id;
+
+const getUserIdentifier = () => jwtDecode(getToken()).sub;
 
 const getUserName = () => jwtDecode(getToken()).name;
 
@@ -51,6 +53,7 @@ export {
   setToken,
   removeToken,
   getUserId,
+  getUserIdentifier,
   getUserName,
   getIssueTime,
   getExpirationTime,
